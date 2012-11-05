@@ -54,14 +54,19 @@ file "/etc/profile.d/hbase-opentsdb.sh" do
   mode 0755
 end
 
-execute "git clone opentsdb" do
-	cwd "#{node['opentsdb']['opentsdb_installdir']}"
-	command "git clone git://github.com/OpenTSDB/opentsdb.git"
-	not_if "test -d #{node['opentsdb']['opentsdb_installdir']}/opentsdb"
-end
+if node['opentsdb']['build_from_src']
+	log 'Building OpentTSDB from source'
+	execute "git clone opentsdb" do
+		cwd "#{node['opentsdb']['opentsdb_installdir']}"
+		command "git clone git://github.com/OpenTSDB/opentsdb.git"
+		not_if "test -d #{node['opentsdb']['opentsdb_installdir']}/opentsdb"
+	end
 
-execute "build opentsdb" do
-	cwd "#{node['opentsdb']['opentsdb_installdir']}/opentsdb"
-	command "./build.sh"
-	not_if "test -f #{node['opentsdb']['opentsdb_installdir']}/opentsdb/build/tsdb-*.jar"
+	execute "build opentsdb" do
+		cwd "#{node['opentsdb']['opentsdb_installdir']}/opentsdb"
+		command "./build.sh"
+		not_if "test -f #{node['opentsdb']['opentsdb_installdir']}/opentsdb/build/tsdb-*.jar"
+	end
+else
+	log 'Skipping the build of OpentTSDB from source'
 end
