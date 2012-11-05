@@ -7,5 +7,5 @@ default_attributes(
   }
 )
 run_list(
-  "recipe[ntp]","recipe[yum]","recipe[yum::epel]"
+  "recipe[yum]","recipe[yum::epel]","recipe[ntp]"
 )
