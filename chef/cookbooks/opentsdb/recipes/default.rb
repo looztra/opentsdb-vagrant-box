@@ -70,3 +70,13 @@ if node['opentsdb']['build_from_src']
 else
 	log 'Skipping the build of OpentTSDB from source'
 end
+
+if node['opentsdb']['create_opentsdb_tables']
+	log 'Creating OpenTSDB HBase tables'
+	execute "create OpenTSDB hbase tables"
+		cwd "#{node['opentsdb']['opentsdb_installdir']}/opentsdb"
+		command "env COMPRESSION=none HBASE_HOME=#{node['opentsdb']['hbase_installdir']}/hbase ./src/create_table.sh"
+	end
+else
+	log 'Skipping OpenTSDB HBase tables creation'
+end
