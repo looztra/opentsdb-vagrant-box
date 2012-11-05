@@ -9,6 +9,7 @@ Done so far:
 
 Todo:
 * automatically start HBase (or not?)
-* create OpenTSDB hbase tables
+* create OpenTSDB hbase tables (TODO: create only if needed)
 * start a TSD process
-* start sample metrics gathering (see [OpenTSDB/Getting started](http://opentsdb.net/getting-started.html))
+* install tcollector
+* start sample metrics gathering (m)
