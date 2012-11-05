@@ -72,7 +72,7 @@ Vagrant::Config.run do |config|
   #   chef.data_bags_path = "../my-recipes/data_bags"     
      chef.add_recipe "opentsdb"
      #chef.add_role "base"
-     #chef.add_role "java"
+     chef.add_role "java"
   #
   #   # You may also specify custom JSON attributes:
   #   chef.json = { :mysql_password => "foo" }
