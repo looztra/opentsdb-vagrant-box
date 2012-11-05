@@ -1,0 +1,9 @@
+[submodule "chef/cookbooks/java"]
+	path = chef/cookbooks/java
+	url = https://github.com/opscode-cookbooks/java.git
+[submodule "chef/cookbooks/ntp"]
+	path = chef/cookbooks/ntp
+	url = https://github.com/opscode-cookbooks/ntp.git
+[submodule "chef/cookbooks/yum"]
+	path = chef/cookbooks/yum
+	url = https://github.com/opscode-cookbooks/yum.git

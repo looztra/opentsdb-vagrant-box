@@ -1,0 +1,3 @@
+java => https://github.com/opscode-cookbooks/java.git
+ntp => https://github.com/opscode-cookbooks/ntp.git
+yum => https://github.com/opscode-cookbooks/yum.git
