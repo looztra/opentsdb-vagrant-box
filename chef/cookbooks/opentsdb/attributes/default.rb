@@ -7,3 +7,4 @@ default['opentsdb']['tgz_rootdir'] = '/tmp/tgz'
 default['opentsdb']['opentsdb_installdir'] = '/usr/local'
 default['opentsdb']['tsd_tmpdir']='/tmp/tsd'
 default['opentsdb']['build_from_src'] = true
+default['opentsdb']['create_opentsdb_tables'] = true
