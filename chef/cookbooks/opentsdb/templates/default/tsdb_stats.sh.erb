@@ -1,0 +1,9 @@
+#!/bin/bash
+INTERVAL=15
+TSD_PORT=<%= node['opentsdb']['tsdb_port'] %>
+while :; do
+  echo stats || exit
+  sleep $INTERVAL
+done | nc -w 30 localhost $TSD_PORT \
+     | sed 's/^/put /' \
+     | nc -w 30 localhost $TSD_PORT
