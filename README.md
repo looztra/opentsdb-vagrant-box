@@ -33,6 +33,7 @@ Done so far:
 * `cd opentsdb-vagrant-box`
 * `vagrant up`
 * wait several minutes the first time (hbase downloading, opentsdb building, ...)
+	* if provisionning fails, you may need to adjust according to your configuration and restart it using `vagrant provision`
 * when your VM is up and provisionning is done you should be able to access the OpenTSDB UI at http://localhost:4242 (check your iptables and firewall settings if needed)
 
 
