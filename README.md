@@ -5,11 +5,12 @@ Work In Progress: [Vagrant](http://vagrantup.com/) box to easily get [OpenTSDB](
 
 Done so far:
 * install  HBase as listed at [OpenTSDB/Setup HBase](http://opentsdb.net/setup-hbase.html)
+* start HBase if needed
 * install OpenTSDB from source.
 * create OpenTSDB hbase tables (only if needed)
 * install tcollector
 
 Todo:
-* automatically start HBase (or not?)
+
 * start a TSD process
-* start sample metrics gathering (m)
+* start sample metrics gathering
