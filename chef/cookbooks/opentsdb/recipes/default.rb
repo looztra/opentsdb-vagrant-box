@@ -38,20 +38,29 @@ execute "tar" do
 	creates "#{node['opentsdb']['hbase_installdir']}/hbase-#{node['opentsdb']['hbase_version']}"
 end
 
-link "#{node['opentsdb']['hbase_installdir']}/hbase" do
+hbase_home = "#{node['opentsdb']['hbase_installdir']}/hbase"
+
+link "#{hbase_home}" do
   to "#{node['opentsdb']['hbase_installdir']}/hbase-#{node['opentsdb']['hbase_version']}"
 end
 
-template "#{node['opentsdb']['hbase_installdir']}/hbase/conf/hbase-site.xml" do
+template "#{hbase_home}/conf/hbase-site.xml" do
 	source "hbase-conf.erb"
 	mode "0644"
 end
 
 file "/etc/profile.d/hbase-opentsdb.sh" do
   content <<-EOS
-    export HBASE_HOME=#{node['opentsdb']['hbase_installdir']}/hbase
+    export HBASE_HOME=#{hbase_home}
   EOS
   mode 0755
+end
+
+if node['opentsdb']['hbase_start_if_needed']
+	execute "start hbase if needed" do
+		command "env HBASE_HOME=#{hbase_home} #{hbase_home}/bin/start-hbase.sh" 
+		not_if "ps auxwww | grep 'org.apache.hadoop.hbase.master.HMaster' | grep -v grep"
+	end
 end
 
 if node['opentsdb']['build_from_src']
