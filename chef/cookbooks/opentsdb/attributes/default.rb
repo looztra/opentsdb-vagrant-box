@@ -10,6 +10,7 @@ default['opentsdb']['opentsdb_installdir'] = '/usr/local'
 default['opentsdb']['tsd_tmpdir']='/tmp/tsd'
 default['opentsdb']['opentsdb_repo'] = 'git://github.com/OpenTSDB/opentsdb.git'
 default['opentsdb']['build_from_src'] = true
+default['opentsdb']['tsdb_port'] = 4242
 # tcollector stuff
 default['opentsdb']['tcollector_repo'] = 'https://github.com/OpenTSDB/tcollector.git'
 default['opentsdb']['tcollector_installdir'] = '/usr/local'
