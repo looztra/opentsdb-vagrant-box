@@ -7,6 +7,8 @@
 # All rights reserved - Do Not Redistribute
 #
 
+hbase_home = "#{node['opentsdb']['hbase_installdir']}/hbase"
+
 ["htop","sysstat","gnuplot","git"].each do |pkg|
 	package pkg
 end
@@ -38,8 +40,6 @@ execute "tar" do
 	creates "#{node['opentsdb']['hbase_installdir']}/hbase-#{node['opentsdb']['hbase_version']}"
 end
 
-hbase_home = "#{node['opentsdb']['hbase_installdir']}/hbase"
-
 link "#{hbase_home}" do
   to "#{node['opentsdb']['hbase_installdir']}/hbase-#{node['opentsdb']['hbase_version']}"
 end
@@ -56,18 +56,16 @@ file "/etc/profile.d/hbase-opentsdb.sh" do
   mode 0755
 end
 
-if node['opentsdb']['hbase_start_if_needed']
-	execute "start hbase if needed" do
-		command "env HBASE_HOME=#{hbase_home} #{hbase_home}/bin/start-hbase.sh" 
-		not_if "ps auxwww | grep 'org.apache.hadoop.hbase.master.HMaster' | grep -v grep"
-	end
+execute "start hbase if needed" do
+	command "env HBASE_HOME=#{node['opentsdb']['hbase_installdir']}/hbase #{node['opentsdb']['hbase_installdir']}/hbase/bin/start-hbase.sh" 
+	not_if "ps auxwww | grep 'org.apache.hadoop.hbase.master.HMaster start' | grep -v grep"
 end
 
 if node['opentsdb']['build_from_src']
 	log 'Building OpentTSDB from source'
 	execute "git clone opentsdb" do
 		cwd "#{node['opentsdb']['opentsdb_installdir']}"
-		command "git clone git://github.com/OpenTSDB/opentsdb.git"
+		command "git #{node['opentsdb']['opentsdb_repo']}"
 		creates "#{node['opentsdb']['opentsdb_installdir']}/opentsdb"
 	end	
 	execute "build opentsdb" do
@@ -79,25 +77,13 @@ else
 	log 'Skipping the build of OpentTSDB from source'
 end
 
-if node['opentsdb']['create_opentsdb_tables']
-	log 'Creating OpenTSDB HBase tables if needed'
-	execute "create OpenTSDB hbase tables" do
-		cwd "#{node['opentsdb']['opentsdb_installdir']}/opentsdb"
-		command "env COMPRESSION=none HBASE_HOME=#{node['opentsdb']['hbase_installdir']}/hbase ./src/create_table.sh"
-		only_if "ps auxwww | grep 'org.apache.hadoop.hbase.master.HMaster' | grep -v grep"
-		not_if "test -d #{node['opentsdb']['hbase_rootdir']}/hbase-root/hbase/tsdb && test -d #{node['opentsdb']['hbase_rootdir']}/hbase-root/hbase/tsdb-uid"
-	end
-else
-	log 'Skipping OpenTSDB HBase tables creation'
+
+log 'Creating OpenTSDB HBase tables if needed'
+execute "create OpenTSDB hbase tables" do
+	cwd "#{node['opentsdb']['opentsdb_installdir']}/opentsdb"
+	command "env COMPRESSION=none HBASE_HOME=#{node['opentsdb']['hbase_installdir']}/hbase ./src/create_table.sh"
+	only_if "ps auxwww | grep 'org.apache.hadoop.hbase.master.HMaster start' | grep -v grep"
+	not_if "test -d #{node['opentsdb']['hbase_rootdir']}/hbase-root/hbase/tsdb && test -d #{node['opentsdb']['hbase_rootdir']}/hbase-root/hbase/tsdb-uid"
 end
 
-if node['opentsdb']['tcollector_installswitch']
-	log 'Installing tcollector if needed'
-	execute "git clone tcollector" do
-		cwd "#{node['opentsdb']['tcollector_installdir']}"
-		command "git clone #{node['opentsdb']['tcollector_repo']}"
-		creates "#{node['opentsdb']['tcollector_installdir']}/tcollector"
-	end
-else
-	log 'Skipping tcollector installation'
-end
+
