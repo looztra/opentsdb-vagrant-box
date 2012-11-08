@@ -65,7 +65,7 @@ if node['opentsdb']['build_from_src']
 	log 'Building OpentTSDB from source'
 	execute "git clone opentsdb" do
 		cwd "#{node['opentsdb']['opentsdb_installdir']}"
-		command "git #{node['opentsdb']['opentsdb_repo']}"
+		command "git clone #{node['opentsdb']['opentsdb_repo']}"
 		creates "#{node['opentsdb']['opentsdb_installdir']}/opentsdb"
 	end	
 	execute "build opentsdb" do
