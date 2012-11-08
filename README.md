@@ -8,7 +8,7 @@ Done so far:
 * start HBase if needed
 * install OpenTSDB from source.
 * create OpenTSDB hbase tables (only if needed)
-* install tcollector
+* install tcollector (dedicated recipe opentsdb::tcollector)
 
 Todo:
 
