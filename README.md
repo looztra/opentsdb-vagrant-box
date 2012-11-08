@@ -9,8 +9,8 @@ Done so far:
 * install OpenTSDB from source.
 * create OpenTSDB hbase tables (only if needed)
 * install tcollector (dedicated recipe opentsdb::tcollector)
+* start a TSD process
+* start sample metrics gathering
 
 Todo:
 
-* start a TSD process
-* start sample metrics gathering
