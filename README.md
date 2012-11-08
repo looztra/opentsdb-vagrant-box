@@ -36,4 +36,6 @@ Done so far:
 	* if provisionning fails, you may need to adjust according to your configuration and restart it using `vagrant provision`
 * when your VM is up and provisionning is done you should be able to access the OpenTSDB UI at http://localhost:4242 (check your iptables and firewall settings if needed)
 
+## Disclaimer
 
+The Chef recipes provided are not relevant for a production usage (*HBase* installation does not use HDFS and does not run on a cluster for instance). This VM can be used to give a try to **OpenTSDB** or to developp something in the OpenTSDB ecosystem (like a new Dashboard UI or a [Metrics](http://metrics.codahale.com/) connector for instance :]).
