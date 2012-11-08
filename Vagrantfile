@@ -50,7 +50,7 @@ Vagrant::Config.run do |config|
        chef.add_role "base"
        chef.add_role "java"
        chef.add_recipe "opentsdb"
-       chef.add_recipe "opentsdb::opentsdb"       
+       chef.add_recipe "opentsdb::opentsdb"              
        chef.add_recipe "opentsdb::tcollector"
     #
     #   # You may also specify custom JSON attributes:

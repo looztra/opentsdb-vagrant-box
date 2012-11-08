@@ -7,7 +7,4 @@ execute "starting tsdb" do
 	not_if "ps auxwww | grep 'net.opentsdb.tools.TSDMain' | grep -v grep"	
 end
 
-template "#{node['opentsdb']['tcollector_installdir']}/tcollector/collectors/0/tsdb_stats.sh" do
-	source "tsdb_stats.sh.erb"
-	mode "0755"
-end
+
