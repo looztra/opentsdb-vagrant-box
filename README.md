@@ -3,7 +3,7 @@ opentsdb-vagrant-box
 
 ## Introduction
 
-Work In Progress: [Vagrant](http://vagrantup.com/) box to easily get [OpenTSDB](http://opentsdb.net/ "OpenTSDB") up and running through Vagrant (with a [Chef](http://wiki.opscode.com/display/chef/Home) provisionning)
+[Vagrant](http://vagrantup.com/) box to easily get [OpenTSDB](http://opentsdb.net/ "OpenTSDB") up and running through Vagrant (with a [Chef](http://wiki.opscode.com/display/chef/Home) provisionning)
 
 Done so far:
 * installs  *HBase* as listed at [OpenTSDB/Setup HBase](http://opentsdb.net/setup-hbase.html) (recipe **opentsdb::install**)
